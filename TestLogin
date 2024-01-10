@@ -1,0 +1,61 @@
+package test.login;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Adrián
+ */
+public class TestLogin {
+
+    /**
+     * @param args the command line arguments
+     */
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        //pedir nombre y targeta de credito y codigo de seguridad y fecha caducidad
+        System.out.println("Hola my brudda, ponme el nombre de usuario.");
+        String username = sc.next();
+        System.out.println("Ahora, introduce la contrasena.");
+        String password = sc.next();
+        //invocamos el checkin del login y el confirm para a parte, decir bienvenido/error
+        loginConfirm(loginCheck(username, password));
+    }
+
+    //logica principal - el check de usuario/password
+    static boolean loginCheck(String usernameInput, String passwordInput) {
+        //los valores que estamos esperando que el usuario introduzca
+        String usernameUser1 = "usuario1";
+        String passwordUser1 = "asdfg";
+        //iniciamos un contador para monitorear los intentos y los intentos maximos
+        int trycount = 1;
+        //"es lo mismo" while(condicion) {codigo} que do{codigo} while(condicion)
+        do {
+            //en caso de que el usuario ponga bien su username y su password
+            if (usernameInput.equals(usernameUser1) && passwordInput.equals(passwordUser1)) {
+                return true;
+                //en caso de que sea un macaco y no se acuerde de su username/psswd
+            } else {
+                //incrementamos el contador
+                trycount++;
+                //volvemos a preguntar los datos
+                System.out.println("Vuelve a poner el nombre de usuario");
+                usernameInput = sc.next();
+                System.out.println("Vuelve a introducir la contrasena.");
+                passwordInput = sc.next();
+            }
+        } while (trycount < 3);
+        System.out.println("Has superado el limite de intentos");
+        return false;
+    }
+
+    //esto solo es para poner bienvenido/adios xd
+    static void loginConfirm(boolean validatedLogIn) {
+        if (validatedLogIn) {
+            System.out.println("Bienvenido usuario1");
+        } else {
+            System.out.println("Acceso DENEGADO - Se cerrara el programa");
+        }
+    }
+}
